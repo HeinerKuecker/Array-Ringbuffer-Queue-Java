@@ -1,5 +1,5 @@
 # Array-Ringbuffer-Queue-Java
-A queue based on a ringbufferr, which in turn is based on a array
+A queue based on a ringbuffer, which in turn is based on a array
 
 Version with array access over division rest (modulo).
 
