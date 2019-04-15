@@ -1,5 +1,6 @@
 package de.heinerkuecker.array_ringbuffer_queue;
 
+import java.util.Arrays;
 import java.util.NoSuchElementException;
 
 // https://www.google.com/search?q=ringbuffer+array+java
@@ -208,16 +209,7 @@ public class IntRingBuffer
             return false;
         }
 
-        final int truncatedSetIndex = this.setIndex % this.maxSize();
-
-        // only for test
-        if ( innerArray[ truncatedSetIndex ] != 0 )
-            // array position was not empty in test with values != 0
-        {
-            throw new IllegalStateException();
-        }
-
-        innerArray[ truncatedSetIndex ] = valueToAdd;
+        innerArray[ this.setIndex % this.maxSize() ] = valueToAdd;
 
         this.setIndex++;
 
@@ -240,27 +232,6 @@ public class IntRingBuffer
     }
 
     /**
-     * @return the element at the specified index without deleting it
-     */
-    public int get(
-            final int index )
-    {
-        if ( index < 0 )
-        {
-            throw new IllegalArgumentException(
-                    "index " + index );
-        }
-        if ( index >= this.currentSize() )
-        {
-            throw new IllegalArgumentException(
-                    "index " + index + " " +
-                    "current size " + this.currentSize() );
-        }
-
-        return innerArray[ ( this.getIndex + index ) % this.maxSize() ];
-    }
-
-    /**
      * @return the first element with deleting it
      */
     public int take()
@@ -272,12 +243,7 @@ public class IntRingBuffer
             throw new NoSuchElementException();
         }
 
-        final int truncatedGetIndex = this.getIndex % this.maxSize();
-
-        final int result = innerArray[ truncatedGetIndex ];
-
-        // only for test but later necessary for working with objects to avoid memory leaks
-        innerArray[ truncatedGetIndex ] = 0;
+        final int result = innerArray[ this.getIndex % this.maxSize() ];
 
         this.getIndex++;
 
@@ -296,27 +262,12 @@ public class IntRingBuffer
     @Override
     public String toString()
     {
-        //for develop
-        //return
-        //        this.getClass().getSimpleName() +
-        //        "[" +
-        //        "getIndex=" + getIndex + ", " +
-        //        "setIndex=" + setIndex + ", " +
-        //        "innerArray=" + Arrays.toString( innerArray ) +
-        //        "]";
-
-        final StringBuilder buff = new StringBuilder();
-
-        for ( int i = 0 ; i < this.currentSize() ; i++ )
-        {
-            if ( i != 0 )
-            {
-                buff.append( ", " );
-            }
-            buff.append( this.get( i ) );
-        }
-
-        return "[" + buff + "]";
+        return
+                "IntRingBuffer[" +
+                "getIndex=" + getIndex + ", " +
+                "setIndex=" + setIndex + ", " +
+                "innerArray=" + Arrays.toString( innerArray ) +
+                "]";
     }
 
 }

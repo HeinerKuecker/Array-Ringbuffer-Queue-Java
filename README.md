@@ -134,3 +134,7 @@ Take 3
 This repository contains an eclipse project ARRAY_RINGBUFFER_QUEUE.
 
 The unit test used JUnit4.
+
+See also the forum thread in german:
+
+[Algorithmus Warteschlange Ringpuffer wirklich fehlerfrei](https://www.java-forum.org/thema/algorithmus-warteschlange-ringpuffer-wirklich-fehlerfrei.184549/)
